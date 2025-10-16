@@ -24,7 +24,7 @@ void MenuInicial(){
         ExibirCardapio();
         break;
     case 2:
-        FazerPerido();
+        FazerPedido();
         break;
     case 3:
         VerPedidos();
@@ -51,7 +51,7 @@ void ExibirCardapio(){
 
     switch(resposta){
     case 1:
-        FazerPerido();
+        FazerPedido();
         break;
     default:
         MenuInicial();
@@ -62,24 +62,74 @@ void ExibirCardapio(){
 
 }
 
-void FazerPerido(){
+void FazerPedido(){
     system("cls");
     int resposta;
 
-    printf("\n\n   AQUI VOCÊ FAZ O PEDIDO\n\n");
+    do{
+        printf("\n\n   AQUI VOCÊ FAZ O PEDIDO\n\n");
 
-    printf("    Digite o número do prato: ");
-    printf("\n    RESPOSTA: ");
-    scanf("%d", &resposta);
+        printf("    Digite o número do prato: ");
+        printf("\n    RESPOSTA: ");
+        scanf("%d", &resposta);
+
+        printf("\n   1- Adicionar mais pratos\n   2- Pagamento\n   3- Menu Inicial\n");
+        printf("   RESPOSTA: ");
+        scanf("%d", &resposta);
+
+        system("cls");
+
+
+    }while (resposta == 1);
+
+    switch(resposta){
+
+    case 2:
+        RealizarPagamento();
+        break;
+    default:
+        MenuInicial();
+        break;
+    }
+
 
 }
 
 void VerPedidos(){
     system("cls");
 
+    int resposta;
+
     printf("\n\n   AQUI VOCÊ VER SEUS PEDIDOS\n\n");
 
+    printf("   1- Menu Inicial\n   2- Finalizar Porgrama\n");
+    printf("   RESPOSTA: ");
+    scanf("%d", &resposta);
+
+    if(resposta == 1)
+        MenuInicial();
+
+    FinalizarPrograma();
+
 }
+
+void RealizarPagamento(){
+
+    int resposta;
+
+    printf("\n\nAQUI VOCÊ ESCOLHE COMO PAGAR");
+
+    printf("\n\n   1- Menu Inicial\n   2- Ver Pedidos\n");
+    printf("   RESPOSTA: ");
+    scanf("%d", &resposta);
+
+    if(resposta == 1)
+        MenuInicial();
+
+    VerPedidos();
+
+}
+
 
 int FinalizarPrograma(){
     system("cls");

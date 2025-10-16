@@ -4,8 +4,9 @@
 void MenuInicial();
 void ExibirCardapio();
 int FinalizarPedido();
-void FazerPerido();
+void FazerPedido();
 void VerPedidos();
+void RealizarPagamento();
 int FinalizarPrograma();
 
 
