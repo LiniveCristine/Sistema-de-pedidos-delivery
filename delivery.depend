@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1760707255 source:c:\users\acer\documents\delivery\main.c
+1760716893 source:c:\users\acer\documents\delivery\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<string.h>
 	"sdelivery.h"
 
-1760706328 c:\users\acer\documents\delivery\sdelivery.h
+1760716418 c:\users\acer\documents\delivery\sdelivery.h
 

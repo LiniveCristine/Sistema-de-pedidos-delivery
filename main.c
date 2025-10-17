@@ -134,11 +134,18 @@ void VerPedidos(){
 
     printf("\n   CLIENTE: %s", cliente.nome);
     printf("   ENDERÇO: %s", cliente.endereco);
-    printf("   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão");
+
+    if(cliente.pedido.FormaPagamento == 2 && cliente.pedido.troco > 0){
+        printf("   FORMA DE PAGAMENTO: %s","dinheiro e cartão");
+
+    } else {
+        printf("   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão");
+
+    }
 
     printf("\n\n   *** SEUS PEDIDOS: ***\n\n");
 
-    for(int i = 0; i < cliente.pedido.QntProtudos ; i++){
+    for(int i = 0; i < cliente.pedido.QntProtudos; i++){
 
         printf("   %s - %.2f\n", cliente.pedido.ListaProdutos[i].nome, cliente.pedido.ListaProdutos[i].valor);
 
@@ -146,7 +153,7 @@ void VerPedidos(){
 
     printf("\n   TOTAL: %.2f\n", cliente.pedido.ValorTotal);
 
-    if(cliente.pedido.FormaPagamento == 1 && cliente.pedido.troco > 0)
+    if(cliente.pedido.troco > 0)
         printf("   TROCO: %.2f\n", cliente.pedido.troco);
 
     printf("\n   1- Menu Inicial\n   2- Finalizar Porgrama\n");
@@ -184,13 +191,13 @@ void RealizarPagamento(int QntProd){
         float pagamento;
 
         do{
-            printf("\n   Digite o valor em dinheiro: ");
+            printf("\n   VALOR: ");
             scanf("%f", &pagamento);
 
         }while(pagamento < total);
 
 
-        cliente.pedido.troco = pagamento - total;
+        cliente.pedido.troco += pagamento - total;
     }
 
 
@@ -221,6 +228,7 @@ int FinalizarPedido(){
 
     printf("\n  Deseja Finalizar o programa?\n");
     printf("   1- SIM   2- NÃO\n");
+    printf("   RESPOSTA: ");
     scanf("%d", &resposta);
 
     if(resposta == 1)
