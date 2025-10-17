@@ -114,6 +114,13 @@ void RemoverPrato(){
     printf("\n   RESPOSTA: ");
     scanf("%d", &resposta);
 
+    for(int i = resposta; i < QntProdutosMenu; i++){
+        menu[i-1] = menu[i];
+
+    }
+
+    QntProdutosMenu--;
+
 }
 
 void ExibirCardapio(){
@@ -149,7 +156,7 @@ void FazerPedido(){
     int QntProd = 0;
 
     do{
-        for(int i = 0; i <= QntProdutosMenu - 2; i+=2){
+        for(int i = 0; i <= QntProdutosMenu - 2; i++){ //ajustar esse loop para quando for IMPAR
             printf("   %d- %s - Valor: %.2f\t",i+1, menu[i].nome , menu[i].valor);
             printf("   %d- %s - Valor: %.2f\n",i+2, menu[i+1].nome , menu[i+1].valor);
         }
