@@ -22,6 +22,7 @@ typedef struct{
 typedef struct{
     int FormaPagamento;
     float ValorTotal;
+    float troco;
     int QntProtudos;
     Produto ListaProdutos[20];
 
