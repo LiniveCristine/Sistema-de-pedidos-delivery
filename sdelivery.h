@@ -11,6 +11,9 @@ void FazerPedido();
 void VerPedidos();
 void RealizarPagamento(int QntProd);
 int FinalizarPrograma();
+void MenuAdm();
+void AdcionarPrato();
+void RemoverPrato();
 
 typedef struct{
     char nome[15];
@@ -23,6 +26,7 @@ typedef struct{
     int FormaPagamento;
     float ValorTotal;
     float troco;
+    int FormaCartao;
     int QntProtudos;
     Produto ListaProdutos[20];
 
@@ -47,7 +51,8 @@ Produto Cheese = {"Cheese-b", "Pão brioche, blend de 180g da casa e duas fatias 
 Produto Classico = {"Clássico", "Pão brioche, blend bovino de 180 g da casa, cheddar cremoso artesanal, cebola caramelizada e bacon crocante.", 38.00, 4};
 Produto Cortes ={"Cortês", "Pão brioche, blend bovino de 180g da casa, emulsão de gorgonzola, cebola crispy, rúcula e geleia de abacaxi.", 39.00, 5};
 
-Produto menu[20];
+Produto menu[25];
+int QntProdutosMenu = 6;
 Cliente cliente;
 
 #endif // SDELIVERY_H_INCLUDED

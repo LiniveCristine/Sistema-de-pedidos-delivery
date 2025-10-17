@@ -13,7 +13,7 @@ void GerarMenu(){
     menu[4] = Classico;
     menu[5] = Cortes;
 
-};
+}
 
 void CadastrarCliente(){
 
@@ -40,7 +40,8 @@ void MenuInicial(){
     printf("   1- CARDÁPIO\n");
     printf("   2- FAZER PEDIDO\n");
     printf("   3- VER PEDIDOS\n");
-    printf("   4- FINALIZAR\n");
+    printf("   4- ADMINISTRADOR\n");
+    printf("   5- FINALIZAR\n");
     printf("\n   RESPOSTA: ");
     scanf("%d", &resposta);
 
@@ -55,11 +56,64 @@ void MenuInicial(){
     case 3:
         VerPedidos();
         break;
+    case 4:
+        MenuAdm();
+        break;
     default:
         return;
-        //break;
 
     }
+}
+
+void MenuAdm(){
+
+    system("cls");
+    int resposta;
+
+    printf("\n\n      **** ADMINISTRADOR ****\n\n");
+    printf("   1- ADICIONAR PRATO AO CARDÁPIO\n");
+    printf("   2- REMOVER PRATO DO CARDÁPIO\n");
+    printf("   3- MENU INICIAL\n");
+
+    printf("\n   RESPOSTA: ");
+    scanf("%d", &resposta);
+
+    switch(resposta){
+
+    case 1:
+        AdcionarPrato();
+        break;
+    case 2:
+        RemoverPrato();
+        break;
+    default:
+        MenuInicial();
+
+ }
+}
+
+void AdcionarPrato(){
+
+
+
+}
+
+void RemoverPrato(){
+
+    system("cls");
+    int resposta;
+
+
+    printf("\n\n\t      **** REMOVER PRATO ****\n\n");
+    for(int i = 0; i <= QntProdutosMenu-2; i+=2){
+        printf("   %d- %s - Valor: %.2f\t",i+1, menu[i].nome , menu[i].valor);
+        printf("   %d- %s - Valor: %.2f\n",i+2, menu[i+1].nome , menu[i+1].valor);
+    }
+
+    printf("\n   Digite o número do prato: ");
+    printf("\n   RESPOSTA: ");
+    scanf("%d", &resposta);
+
 }
 
 void ExibirCardapio(){
@@ -69,7 +123,7 @@ void ExibirCardapio(){
     int resposta;
     printf("\n\n\t**** CARDÁPIO ****\n\n");
 
-    for(int i = 0; i <= 5; i++){
+    for(int i = 0; i <= QntProdutosMenu-1; i++){
         printf("   %d- %s\n *%s\n *Valor: %.2f\n\n",i+1, menu[i].nome, menu[i].descricao, menu[i].valor);
     }
 
@@ -95,7 +149,7 @@ void FazerPedido(){
     int QntProd = 0;
 
     do{
-        for(int i = 0; i <= 4; i+=2){
+        for(int i = 0; i <= QntProdutosMenu - 2; i+=2){
             printf("   %d- %s - Valor: %.2f\t",i+1, menu[i].nome , menu[i].valor);
             printf("   %d- %s - Valor: %.2f\n",i+2, menu[i+1].nome , menu[i+1].valor);
         }
@@ -135,11 +189,12 @@ void VerPedidos(){
     printf("\n   CLIENTE: %s", cliente.nome);
     printf("   ENDERÇO: %s", cliente.endereco);
 
-    if(cliente.pedido.FormaPagamento == 2 && cliente.pedido.troco > 0){
-        printf("   FORMA DE PAGAMENTO: %s","dinheiro e cartão");
 
-    } else {
-        printf("   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão");
+    if(cliente.pedido.FormaPagamento == 2 && cliente.pedido.troco > 0 || cliente.pedido.FormaPagamento == 1 && cliente.pedido.FormaCartao !=0 ){
+        printf("   FORMA DE PAGAMENTO: dinheiro e cartão");
+
+    } else if(cliente.pedido.FormaPagamento != 0) {
+        printf("   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão" );
 
     }
 
@@ -198,6 +253,11 @@ void RealizarPagamento(int QntProd){
 
 
         cliente.pedido.troco += pagamento - total;
+    } else {
+        printf("\n   1- CRÉDITO   2- DÉBITO");
+        printf("\n   RESPOSTA: ");
+        scanf("%d",&cliente.pedido.FormaCartao);
+
     }
 
 
@@ -235,7 +295,6 @@ int FinalizarPedido(){
         return 1;
 
     return 0;
-
 }
 
 int main(){
