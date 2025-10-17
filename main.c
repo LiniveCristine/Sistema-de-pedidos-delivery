@@ -17,12 +17,13 @@ void GerarMenu(){
 
 void CadastrarCliente(){
 
+    system("cls");
+
     printf("\n\t*** NOME DA EMPRESA ****\n\n");
 
     printf("\n- CADASTRO\n\n");
     printf("   Nome: ");
     fgets(cliente.nome, 30, stdin);
-
 
     printf("   Endereço: ");
     fgets(cliente.endereco, 60, stdin);
@@ -55,11 +56,10 @@ void MenuInicial(){
         VerPedidos();
         break;
     default:
-        FinalizarPrograma();
-        break;
+        return;
+        //break;
 
     }
-
 }
 
 void ExibirCardapio(){
@@ -86,11 +86,11 @@ void ExibirCardapio(){
         break;
 
     }
-
 }
 
 void FazerPedido(){
     system("cls");
+
     int resposta;
     int QntProd = 0;
 
@@ -116,7 +116,6 @@ void FazerPedido(){
 
     }while (resposta == 1);
 
-
     switch(resposta){
 
     case 2:
@@ -126,8 +125,6 @@ void FazerPedido(){
         MenuInicial();
         break;
     }
-
-
 }
 
 void VerPedidos(){
@@ -135,27 +132,27 @@ void VerPedidos(){
 
     int resposta;
 
+    printf("\n   CLIENTE: %s", cliente.nome);
+    printf("   ENDERÇO: %s", cliente.endereco);
 
-    printf("   SEUS PEDIDOS:\n");
+    printf("\n   *** SEUS PEDIDOS: ***\n\n");
 
     for(int i = 0; i < cliente.pedido.QntProtudos ; i++){
 
-        printf("%s - %.2f\n", cliente.pedido.ListaProdutos[i].nome, cliente.pedido.ListaProdutos[i].valor);
+        printf("   %s - %.2f\n", cliente.pedido.ListaProdutos[i].nome, cliente.pedido.ListaProdutos[i].valor);
 
     }
 
-    printf("   TOTAL: %.2f\n", cliente.pedido.ValorTotal);
+    printf("\n   TOTAL: %.2f\n", cliente.pedido.ValorTotal);
 
-
-    printf("   1- Menu Inicial\n   2- Finalizar Porgrama\n");
+    printf("\n   1- Menu Inicial\n   2- Finalizar Porgrama\n");
     printf("   RESPOSTA: ");
     scanf("%d", &resposta);
 
-    if(resposta == 1)
-        MenuInicial();
+    if(resposta == 2)
+        return;
 
-    FinalizarPrograma();
-
+    MenuInicial();
 }
 
 void RealizarPagamento(int QntProd){
@@ -164,8 +161,6 @@ void RealizarPagamento(int QntProd){
 
     int resposta;
     float total = 0;
-
-
 
     printf("\nCARRINHO:\n");
     for(int n = 0; n < QntProd; n++){
@@ -186,7 +181,6 @@ void RealizarPagamento(int QntProd){
     cliente.pedido.QntProtudos += QntProd;
     memset(cliente.carrinho, 0, sizeof(cliente.carrinho));
 
-
     printf("\n\n   1- Menu Inicial\n   2- Ver Pedidos\n");
     printf("   RESPOSTA: ");
     scanf("%d", &resposta);
@@ -199,49 +193,35 @@ void RealizarPagamento(int QntProd){
 }
 
 
-int FinalizarPrograma(){
-    system("cls");
-
-    printf("\n\n   PROGRAMA FINALIZADO\n\n");
-
-return 0;
-}
-
-
 int FinalizarPedido(){
     system("cls");
 
-    int resposta;
-    printf("\nDeseja finalizar o pedido?\n");
-    printf("   1- SIM\n   2- NÃO\n\n");
+    int resposta = 0;
 
-    printf("RESPOSTA: ");
+    printf("\n  Deseja Finalizar o programa?\n");
+    printf("   1- SIM   2- NÃO\n");
     scanf("%d", &resposta);
 
     if(resposta == 1)
         return 1;
 
+    return 0;
 
-return 0;
 }
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
 
     GerarMenu();
+    CadastrarCliente();
 
     do{
 
-
-        CadastrarCliente();
         MenuInicial();
-
-
 
     }while(!FinalizarPedido());
 
     system("cls");
-
 
     return 0;
 }

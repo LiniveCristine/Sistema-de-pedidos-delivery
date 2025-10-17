@@ -16,12 +16,10 @@ typedef struct{
     char nome[15];
     char descricao[130];
     float valor;
-    int codigo;
 
 }Produto;
 
 typedef struct{
-    int codigo;
     int FormaPagamento;
     float ValorTotal;
     int QntProtudos;
