@@ -92,9 +92,43 @@ void MenuAdm(){
  }
 }
 
+void TirarQuebraLinha(char *texto){
+     char *ponteiro;
+
+     ponteiro = strchr(texto, '\n');
+
+    if(ponteiro != NULL){
+        *ponteiro = ' ';
+    }
+
+}
+
 void AdcionarPrato(){
+    system("cls");
+    char LimparBuffer;
+
+    Produto NovoProduto;
 
 
+    scanf("%c", &LimparBuffer);
+
+    printf("\n\n\t      **** ADICIONAR PRATO ****\n\n");
+    printf("NOME: ");
+    fgets(NovoProduto.nome, 15, stdin);
+
+    TirarQuebraLinha(NovoProduto.nome);
+
+    printf("DESCRIÇÃO: ");
+    fgets(NovoProduto.descricao, 130, stdin);
+
+
+    TirarQuebraLinha(NovoProduto.descricao);
+
+    printf("PREÇO: ");
+    scanf("%f",&NovoProduto.valor);
+
+    menu[QntProdutosMenu] = NovoProduto;
+    QntProdutosMenu++;
 
 }
 
@@ -105,12 +139,15 @@ void RemoverPrato(){
 
 
     printf("\n\n\t      **** REMOVER PRATO ****\n\n");
-    for(int i = 0; i <= QntProdutosMenu-2; i+=2){
-        printf("   %d- %s - Valor: %.2f\t",i+1, menu[i].nome , menu[i].valor);
-        printf("   %d- %s - Valor: %.2f\n",i+2, menu[i+1].nome , menu[i+1].valor);
+
+    for(int i = 0; i < QntProdutosMenu; i++){
+        printf("   %d- %s - Valor: %.2f\t\t",i+1, menu[i].nome , menu[i].valor);
+
+        if(i != 0 && i%2 != 0)
+        printf("\n");
     }
 
-    printf("\n   Digite o número do prato: ");
+    printf("\n\n   Digite o número do prato: ");
     printf("\n   RESPOSTA: ");
     scanf("%d", &resposta);
 
@@ -121,6 +158,22 @@ void RemoverPrato(){
 
     QntProdutosMenu--;
 
+    printf("\n   1- Remover pratos\n   2- Menu administrador\n   3- Menu inicial\n");
+    printf("   RESPOSTA: ");
+    scanf("%d", &resposta);
+
+    system("cls");
+
+    switch(resposta){
+
+    case 1:
+        RemoverPrato();
+    case 2:
+        MenuAdm();
+    default:
+        MenuInicial();
+
+    }
 }
 
 void ExibirCardapio(){
@@ -156,12 +209,16 @@ void FazerPedido(){
     int QntProd = 0;
 
     do{
-        for(int i = 0; i <= QntProdutosMenu - 2; i++){ //ajustar esse loop para quando for IMPAR
-            printf("   %d- %s - Valor: %.2f\t",i+1, menu[i].nome , menu[i].valor);
-            printf("   %d- %s - Valor: %.2f\n",i+2, menu[i+1].nome , menu[i+1].valor);
+        printf("\n\n\t      **** FAZER PEDIDO ****\n\n");
+
+        for(int i = 0; i < QntProdutosMenu; i++){
+            printf("   %d- %s - Valor: %.2f\t\t",i+1, menu[i].nome , menu[i].valor);
+
+            if(i != 0 && i%2 != 0)
+                printf("\n");
         }
 
-        printf("\n    Digite o número do prato: ");
+        printf("\n\n    Digite o número do prato: ");
         printf("\n    RESPOSTA: ");
         scanf("%d", &resposta);
 

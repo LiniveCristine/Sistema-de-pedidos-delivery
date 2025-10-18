@@ -14,6 +14,7 @@ int FinalizarPrograma();
 void MenuAdm();
 void AdcionarPrato();
 void RemoverPrato();
+void TirarQuebraLinha(char *texto);
 
 typedef struct{
     char nome[15];
