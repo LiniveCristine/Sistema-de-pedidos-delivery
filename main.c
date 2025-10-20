@@ -21,7 +21,29 @@ int VerificarNum(){//PERGUNTAR CARLOS***
     }
 
     return resposta;
+}
 
+char* VerificarTexto(int num){
+    fgets(cliente.nome, num, stdin);
+
+    while(cliente.nome == '\n'){
+        printf("\nTexto INVÁLIDO\n");
+        fgets(cliente.nome, num, stdin);
+    }
+
+    return cliente.nome;
+}
+
+
+
+void TirarQuebraLinha(char *texto){
+     char *ponteiro;
+
+     ponteiro = strchr(texto, '\n');
+
+    if(ponteiro != NULL){
+        *ponteiro = ' ';
+    }
 }
 
 void GerarMenu(){ //PERGUNTAR CARLOS***
@@ -36,16 +58,19 @@ void GerarMenu(){ //PERGUNTAR CARLOS***
 
 void CadastrarCliente(){
 
-    system("cls");
+    do{
+        system("cls");
 
-    printf("\n\t*** NOME DA EMPRESA ****\n\n");
+        printf("\n\t*** NOME DA EMPRESA ****\n\n");
 
-    printf("\n- CADASTRO\n\n");
-    printf("   Nome: ");
-    fgets(cliente.nome, 30, stdin);
+        printf("\n- CADASTRO\n\n");
+        printf("   Nome: ");
+        fgets(cliente.nome, 30, stdin);
 
-    printf("   Endereço: ");
-    fgets(cliente.endereco, 60, stdin);
+        printf("   Endereço: ");
+        fgets(cliente.endereco, 60, stdin);
+
+    }while(cliente.nome[0] == '\n' || cliente.endereco[0] == '\n');
 
 }
 
@@ -108,16 +133,6 @@ void MenuAdm(){
  }
 }
 
-void TirarQuebraLinha(char *texto){
-     char *ponteiro;
-
-     ponteiro = strchr(texto, '\n');
-
-    if(ponteiro != NULL){
-        *ponteiro = ' ';
-    }
-}
-
 void AdcionarPrato(){
     system("cls");
     char LimparBuffer;
@@ -161,12 +176,17 @@ void RemoverPrato(){
     printf("\n\n   Digite o número do prato: ");
     resposta = VerificarNum();
 
-    for(int i = resposta; i < QntProdutosMenu; i++){
-        menu[i-1] = menu[i];
+    if(resposta > 0 && resposta < QntProdutosMenu){
 
+        for(int i = resposta; i < QntProdutosMenu; i++){
+            menu[i-1] = menu[i];
+
+        }
+
+        QntProdutosMenu--;
+    } else{
+        printf("\n   PRATO INVÁLIDO\n");
     }
-
-    QntProdutosMenu--;
 
     printf("\n   1- Remover pratos\n   2- Menu administrador\n   3- Menu inicial\n");
     resposta = VerificarNum();
