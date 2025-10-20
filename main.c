@@ -2,10 +2,29 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
+#include <ctype.h>
 #include "sdelivery.h"
 
 
-void GerarMenu(){
+int VerificarNum(){//PERGUNTAR CARLOS***
+
+    int resposta;
+    char buffer;
+
+    printf("\n   RESPOSTA: ");
+
+    while(scanf("%d", &resposta) != 1){
+        printf("   RESPOSTA INVÁLIDA\n");
+        printf("\n   RESPOSTA:  ");
+        scanf(" %s", &buffer);
+
+    }
+
+    return resposta;
+
+}
+
+void GerarMenu(){ //PERGUNTAR CARLOS***
     menu[0] = Barbaro;
     menu[1] = Retro;
     menu[2] = Cardinal;
@@ -30,6 +49,7 @@ void CadastrarCliente(){
 
 }
 
+
 void MenuInicial(){
 
     system("cls");
@@ -42,14 +62,11 @@ void MenuInicial(){
     printf("   3- VER PEDIDOS\n");
     printf("   4- ADMINISTRADOR\n");
     printf("   5- FINALIZAR\n");
-    printf("\n   RESPOSTA: ");
-    scanf("%d", &resposta);
+
+    resposta = VerificarNum();
+
 
     switch(resposta){
-
-    case 1:
-        ExibirCardapio();
-        break;
     case 2:
         FazerPedido();
         break;
@@ -60,7 +77,7 @@ void MenuInicial(){
         MenuAdm();
         break;
     default:
-        return;
+         ExibirCardapio();
 
     }
 }
@@ -75,8 +92,7 @@ void MenuAdm(){
     printf("   2- REMOVER PRATO DO CARDÁPIO\n");
     printf("   3- MENU INICIAL\n");
 
-    printf("\n   RESPOSTA: ");
-    scanf("%d", &resposta);
+    resposta = VerificarNum();
 
     switch(resposta){
 
@@ -100,15 +116,12 @@ void TirarQuebraLinha(char *texto){
     if(ponteiro != NULL){
         *ponteiro = ' ';
     }
-
 }
 
 void AdcionarPrato(){
     system("cls");
     char LimparBuffer;
-
     Produto NovoProduto;
-
 
     scanf("%c", &LimparBuffer);
 
@@ -120,7 +133,6 @@ void AdcionarPrato(){
 
     printf("DESCRIÇÃO: ");
     fgets(NovoProduto.descricao, 130, stdin);
-
 
     TirarQuebraLinha(NovoProduto.descricao);
 
@@ -137,7 +149,6 @@ void RemoverPrato(){
     system("cls");
     int resposta;
 
-
     printf("\n\n\t      **** REMOVER PRATO ****\n\n");
 
     for(int i = 0; i < QntProdutosMenu; i++){
@@ -148,8 +159,7 @@ void RemoverPrato(){
     }
 
     printf("\n\n   Digite o número do prato: ");
-    printf("\n   RESPOSTA: ");
-    scanf("%d", &resposta);
+    resposta = VerificarNum();
 
     for(int i = resposta; i < QntProdutosMenu; i++){
         menu[i-1] = menu[i];
@@ -159,8 +169,7 @@ void RemoverPrato(){
     QntProdutosMenu--;
 
     printf("\n   1- Remover pratos\n   2- Menu administrador\n   3- Menu inicial\n");
-    printf("   RESPOSTA: ");
-    scanf("%d", &resposta);
+    resposta = VerificarNum();
 
     system("cls");
 
@@ -187,9 +196,8 @@ void ExibirCardapio(){
         printf("   %d- %s\n *%s\n *Valor: %.2f\n\n",i+1, menu[i].nome, menu[i].descricao, menu[i].valor);
     }
 
-    printf("\n\n   1- Fazer pedido\n   2- Voltar");
-    printf("\n   RESPOSTA: ");
-    scanf("%d", &resposta);
+    printf("\n\n   1- Fazer pedido\n   2- Voltar\n");
+    resposta = VerificarNum();
 
     switch(resposta){
     case 1:
@@ -218,16 +226,15 @@ void FazerPedido(){
                 printf("\n");
         }
 
-        printf("\n\n    Digite o número do prato: ");
-        printf("\n    RESPOSTA: ");
-        scanf("%d", &resposta);
+        printf("\n\n    Digite o número do prato:\n");
+
+        resposta = VerificarNum();
 
         cliente.carrinho[QntProd] = menu[resposta-1];
         QntProd++;
 
         printf("\n   1- Adicionar mais pratos\n   2- Pagamento\n   3- Menu Inicial\n");
-        printf("   RESPOSTA: ");
-        scanf("%d", &resposta);
+        resposta = VerificarNum();
 
         system("cls");
 
@@ -277,7 +284,8 @@ void VerPedidos(){
 
     printf("\n   1- Menu Inicial\n   2- Finalizar Porgrama\n");
     printf("   RESPOSTA: ");
-    scanf("%d", &resposta);
+
+    resposta = VerificarNum();
 
     if(resposta == 2)
         return;
@@ -302,16 +310,15 @@ void RealizarPagamento(int QntProd){
     printf("\nTOTAL: %.2f\n", total);
 
     printf("\n   FORMA DE PAGAMENTO:: \n");
-    printf("   1- A VISTA   2- CARTÃO");
-    printf("\n   RESPOSTA: ");
-    scanf("%d",&cliente.pedido.FormaPagamento);
+    printf("   1- A VISTA   2- CARTÃO\n");
+    cliente.pedido.FormaPagamento = VerificarNum();
 
     if(cliente.pedido.FormaPagamento == 1){
         float pagamento;
 
         do{
-            printf("\n   VALOR: ");
-            scanf("%f", &pagamento);
+            printf("\n   TROCO PARA: ");
+            pagamento = VerificarNum();
 
         }while(pagamento < total);
 
@@ -319,7 +326,6 @@ void RealizarPagamento(int QntProd){
         cliente.pedido.troco += pagamento - total;
     } else {
         printf("\n   1- CRÉDITO   2- DÉBITO");
-        printf("\n   RESPOSTA: ");
         scanf("%d",&cliente.pedido.FormaCartao);
 
     }
@@ -335,7 +341,7 @@ void RealizarPagamento(int QntProd){
 
     printf("\n\n   1- Menu Inicial\n   2- Ver Pedidos\n");
     printf("   RESPOSTA: ");
-    scanf("%d", &resposta);
+    resposta = VerificarNum();
 
     if(resposta == 1)
         MenuInicial();
@@ -353,7 +359,7 @@ int FinalizarPedido(){
     printf("\n  Deseja Finalizar o programa?\n");
     printf("   1- SIM   2- NÃO\n");
     printf("   RESPOSTA: ");
-    scanf("%d", &resposta);
+    resposta = VerificarNum();
 
     if(resposta == 1)
         return 1;

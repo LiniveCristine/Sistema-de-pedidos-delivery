@@ -1,7 +1,6 @@
 #ifndef SDELIVERY_H_INCLUDED
 #define SDELIVERY_H_INCLUDED
 
-
 void GerarMenu();
 void CadastrarCliente();
 void MenuInicial();
@@ -15,6 +14,7 @@ void MenuAdm();
 void AdcionarPrato();
 void RemoverPrato();
 void TirarQuebraLinha(char *texto);
+int VerificarNum();
 
 typedef struct{
     char nome[15];
