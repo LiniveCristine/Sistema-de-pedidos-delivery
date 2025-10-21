@@ -39,7 +39,6 @@ void GerarMenu(){ //PERGUNTAR CARLOS***
     menu[3] = Cheese;
     menu[4] = Classico;
     menu[5] = Cortes;
-
 }
 
 void CadastrarCliente(){
@@ -77,12 +76,10 @@ void CadastrarCliente(){
 
 }
 
-
 void MenuInicial(){
 
     system("cls");
     int resposta;
-
 
 printf("\t\t\t\t\t\t __   __        _______  __   __  ______    _______  _______  ______   \n");
 printf("\t\t\t\t\t\t|  |_|  |      |  _    ||  | |  ||    _ |  |       ||       ||    _ |  \n");
@@ -104,7 +101,6 @@ printf("\t\t\t\t\t\t|_|   |_||___| |_______||_______||___|  |_||_______||_______
 
     resposta = VerificarNum();
 
-
     switch(resposta){
     case 2:
         FazerPedido();
@@ -115,9 +111,11 @@ printf("\t\t\t\t\t\t|_|   |_||___| |_______||_______||___|  |_||_______||_______
     case 4:
         MenuAdm();
         break;
+    case 5:
+        FinalizarPedido();
+        break;
     default:
          ExibirCardapio();
-
     }
 }
 
@@ -126,10 +124,12 @@ void MenuAdm(){
     system("cls");
     int resposta;
 
-    printf("\n\n      **** ADMINISTRADOR ****\n\n");
-    printf("   1- ADICIONAR PRATO AO CARDÁPIO\n");
-    printf("   2- REMOVER PRATO DO CARDÁPIO\n");
-    printf("   3- MENU INICIAL\n");
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** ADMINISTRADOR *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
+    printf("\t\t\t\t\t\t  1- ADICIONAR PRATO AO CARDÁPIO\n");
+    printf("\t\t\t\t\t\t  2- REMOVER PRATO DO CARDÁPIO\n");
+    printf("\t\t\t\t\t\t  3- MENU INICIAL\n");
 
     resposta = VerificarNum();
 
@@ -150,27 +150,38 @@ void MenuAdm(){
 void AdcionarPrato(){
     system("cls");
     char LimparBuffer;
+    int resposta;
     Produto NovoProduto;
 
-    scanf("%c", &LimparBuffer);
+    do{
 
-    printf("\n\n\t      **** ADICIONAR PRATO ****\n\n");
-    printf("NOME: ");
-    fgets(NovoProduto.nome, 15, stdin);
+        scanf("%c", &LimparBuffer);
 
-    TirarQuebraLinha(NovoProduto.nome);
+        printf("\n\t\t\t\t\t\t______________________________________\n");
+        printf("\n\t\t\t\t\t\t\t***** ADICIONAR PRATO *****");
+        printf("\n\t\t\t\t\t\t______________________________________\n\n");
 
-    printf("DESCRIÇÃO: ");
-    fgets(NovoProduto.descricao, 130, stdin);
+        printf("\t\t\t\t\t\t*NOME: ");
+        fgets(NovoProduto.nome, 15, stdin);
+        TirarQuebraLinha(NovoProduto.nome);
 
-    TirarQuebraLinha(NovoProduto.descricao);
+        printf("\t\t\t\t\t\t*DESCRIÇÃO: ");
+        fgets(NovoProduto.descricao, 130, stdin);
+        TirarQuebraLinha(NovoProduto.descricao);
 
-    printf("PREÇO: ");
-    scanf("%f",&NovoProduto.valor);
+        printf("\t\t\t\t\t\t*PREÇO: ");
+        scanf("%f",&NovoProduto.valor);
 
-    menu[QntProdutosMenu] = NovoProduto;
-    QntProdutosMenu++;
+        menu[QntProdutosMenu] = NovoProduto;
+        QntProdutosMenu++;
 
+        printf("\n\n\t\t\t\t\t\t   1- Adicionar prato   2- Voltar\n");
+        resposta = VerificarNum();
+
+        system("cls");
+    }while(resposta == 1);
+
+    MenuAdm();
 }
 
 void RemoverPrato(){
@@ -178,19 +189,21 @@ void RemoverPrato(){
     system("cls");
     int resposta;
 
-    printf("\n\n\t      **** REMOVER PRATO ****\n\n");
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** REMOVER PRATO *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
 
     for(int i = 0; i < QntProdutosMenu; i++){
-        printf("   %d- %s - Valor: %.2f\t\t",i+1, menu[i].nome , menu[i].valor);
+        printf("\t\t\t   %d- %s - Valor: %.2f",i+1, menu[i].nome , menu[i].valor);
 
         if(i != 0 && i%2 != 0)
-        printf("\n");
+            printf("\n");
     }
 
-    printf("\n\n   Digite o número do prato: ");
+    printf("\n\n\t\t\t\t\t\t   Digite o número do prato: ");
     resposta = VerificarNum();
 
-    if(resposta > 0 && resposta < QntProdutosMenu){
+    if(resposta > 0 && resposta <= QntProdutosMenu){
 
         for(int i = resposta; i < QntProdutosMenu; i++){
             menu[i-1] = menu[i];
@@ -200,10 +213,10 @@ void RemoverPrato(){
         QntProdutosMenu--;
 
     } else{
-        printf("\n   PRATO INVÁLIDO\n");
+        printf("\n\n\t\t\t\t\t\t   PRATO INVÁLIDO\n");
     }
 
-    printf("\n   1- Remover pratos\n   2- Menu administrador\n   3- Menu inicial\n");
+    printf("\n\n\t\t\t\t   1- Remover pratos   2- Menu administrador   3- Menu inicial\n");
     resposta = VerificarNum();
 
     system("cls");
@@ -223,8 +236,8 @@ void RemoverPrato(){
 void ExibirCardapio(){
 
     system("cls");
-
     int resposta;
+
     printf("\n\t\t\t\t\t\t______________________________________\n");
     printf("\n\t\t\t\t\t\t\t***** CARDÁPIO *****");
     printf("\n\t\t\t\t\t\t______________________________________\n\n");
@@ -249,7 +262,6 @@ void ExibirCardapio(){
 
 void FazerPedido(){
     system("cls");
-
     int resposta;
     int QntProd = 0;
 
@@ -266,7 +278,6 @@ void FazerPedido(){
         }
 
         printf("\n\n\t\t\t\t\t\t    Digite o número do prato:\n");
-
         resposta = VerificarNum();
 
         cliente.carrinho[QntProd] = menu[resposta-1];
@@ -293,7 +304,6 @@ void FazerPedido(){
 
 void VerPedidos(){
     system("cls");
-
     int resposta;
 
     printf("\n\t\t\t\t\t\t______________________________________\n");
@@ -328,16 +338,17 @@ void VerPedidos(){
     printf("\n\n\t\t\t\t\t\t   1- Menu Inicial   2- Finalizar Porgrama\n");
     resposta = VerificarNum();
 
-    if(resposta == 2)
-        return;
+    if(resposta == 2){
 
-    MenuInicial();
+        FinalizarPedido();
+    }else{
+         MenuInicial();
+    }
 }
 
 void RealizarPagamento(int QntProd){
 
     system("cls");
-
     int resposta;
     float total = 0;
 
@@ -366,14 +377,12 @@ void RealizarPagamento(int QntProd){
 
         }while(pagamento < total);
 
-
         cliente.pedido.troco += pagamento - total;
     } else {
         printf("\n\t\t\t\t\t\t\t 1- CRÉDITO   2- DÉBITO");
         cliente.pedido.FormaCartao = VerificarNum();
 
     }
-
 
      for(int n = 0; n < QntProd; n++){
            cliente.pedido.ListaProdutos[n+cliente.pedido.QntProtudos] = cliente.carrinho[n];
@@ -390,24 +399,23 @@ void RealizarPagamento(int QntProd){
         MenuInicial();
 
     VerPedidos();
-
 }
 
 
-int FinalizarPedido(){
+void FinalizarPedido(){
     system("cls");
 
     int resposta = 0;
 
-    printf("\n  Deseja Finalizar o programa?\n");
-    printf("   1- SIM   2- NÃO\n");
-    printf("   RESPOSTA: ");
+    printf("\n\t\t\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t\t   ***** FINALIZAR PROGRAMA *****");
+    printf("\n\t\t\t\t\t\t\t\t______________________________________\n\n");
+    printf("\t\t\t\t\t\t\t\t\t   1- SIM    2- NÃO\n");
     resposta = VerificarNum();
 
     if(resposta == 1)
-        return 1;
+        FinalizarP = 1;
 
-    return 0;
 }
 
 int main(){
@@ -420,7 +428,7 @@ int main(){
 
         MenuInicial();
 
-    }while(!FinalizarPedido());
+    }while(!FinalizarP);
 
     system("cls");
 

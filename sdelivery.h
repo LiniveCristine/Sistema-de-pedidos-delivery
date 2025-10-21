@@ -5,11 +5,10 @@ void GerarMenu();
 void CadastrarCliente();
 void MenuInicial();
 void ExibirCardapio();
-int FinalizarPedido();
+void FinalizarPedido();
 void FazerPedido();
 void VerPedidos();
 void RealizarPagamento(int QntProd);
-int FinalizarPrograma();
 void MenuAdm();
 void AdcionarPrato();
 void RemoverPrato();
@@ -55,5 +54,6 @@ Produto Cortes ={"Cortês", "Pão brioche, blend bovino de 180g da casa, emulsão d
 Produto menu[25];
 int QntProdutosMenu = 6;
 Cliente cliente;
+int FinalizarP = 0;
 
 #endif // SDELIVERY_H_INCLUDED
