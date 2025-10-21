@@ -254,23 +254,25 @@ void FazerPedido(){
     int QntProd = 0;
 
     do{
-        printf("\n\n\t      **** FAZER PEDIDO ****\n\n");
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** CARDÁPIO *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
 
         for(int i = 0; i < QntProdutosMenu; i++){
-            printf("   %d- %s - Valor: %.2f\t\t",i+1, menu[i].nome , menu[i].valor);
+            printf("\t\t\t   %d- %s - Valor: %.2f",i+1, menu[i].nome , menu[i].valor);
 
             if(i != 0 && i%2 != 0)
                 printf("\n");
         }
 
-        printf("\n\n    Digite o número do prato:\n");
+        printf("\n\n\t\t\t\t\t\t    Digite o número do prato:\n");
 
         resposta = VerificarNum();
 
         cliente.carrinho[QntProd] = menu[resposta-1];
         QntProd++;
 
-        printf("\n   1- Adicionar mais pratos\n   2- Pagamento\n   3- Menu Inicial\n");
+        printf("\n\t\t\t\t\t   1- Adicionar mais pratos   2- Pagamento   3- Menu Inicial\n");
         resposta = VerificarNum();
 
         system("cls");
@@ -294,34 +296,36 @@ void VerPedidos(){
 
     int resposta;
 
-    printf("\n   CLIENTE: %s", cliente.nome);
-    printf("   ENDERÇO: %s", cliente.endereco);
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** PEDIDOS *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
+
+    printf("\n\t\t\t\t\t\t   CLIENTE: %s", cliente.nome);
+    printf("\t\t\t\t\t\t   ENDERÇO: %s", cliente.endereco);
 
 
     if(cliente.pedido.FormaPagamento == 2 && cliente.pedido.troco > 0 || cliente.pedido.FormaPagamento == 1 && cliente.pedido.FormaCartao !=0 ){
-        printf("   FORMA DE PAGAMENTO: dinheiro e cartão");
+        printf("\t\t\t\t\t\t   FORMA DE PAGAMENTO: dinheiro e cartão");
 
     } else if(cliente.pedido.FormaPagamento != 0) {
-        printf("   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão" );
+        printf("\t\t\t\t\t\t   FORMA DE PAGAMENTO: %s", cliente.pedido.FormaPagamento == 1? "dinheiro" : "cartão" );
 
     }
 
-    printf("\n\n   *** SEUS PEDIDOS: ***\n\n");
+    printf("\n\n\t\t\t\t\t\t\t   *** SEUS PEDIDOS: ***\n\n");
 
     for(int i = 0; i < cliente.pedido.QntProtudos; i++){
 
-        printf("   %s - %.2f\n", cliente.pedido.ListaProdutos[i].nome, cliente.pedido.ListaProdutos[i].valor);
+        printf("\t\t\t\t\t\t   %s - %.2f\n", cliente.pedido.ListaProdutos[i].nome, cliente.pedido.ListaProdutos[i].valor);
 
     }
 
-    printf("\n   TOTAL: %.2f\n", cliente.pedido.ValorTotal);
+    printf("\n\t\t\t\t\t\t   *TOTAL: %.2f\n", cliente.pedido.ValorTotal);
 
     if(cliente.pedido.troco > 0)
-        printf("   TROCO: %.2f\n", cliente.pedido.troco);
+        printf("\t\t\t\t\t\t   *TROCO: %.2f\n", cliente.pedido.troco);
 
-    printf("\n   1- Menu Inicial\n   2- Finalizar Porgrama\n");
-    printf("   RESPOSTA: ");
-
+    printf("\n\n\t\t\t\t\t\t   1- Menu Inicial   2- Finalizar Porgrama\n");
     resposta = VerificarNum();
 
     if(resposta == 2)
@@ -337,24 +341,27 @@ void RealizarPagamento(int QntProd){
     int resposta;
     float total = 0;
 
-    printf("\nCARRINHO:\n");
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** CARRINHO *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
+
     for(int n = 0; n < QntProd; n++){
-        printf("   %s - %.2f\n",cliente.carrinho[n].nome, cliente.carrinho[n].valor);
+        printf("\t\t\t\t\t\t\t   %s - %.2f\n",cliente.carrinho[n].nome, cliente.carrinho[n].valor);
         total += cliente.carrinho[n].valor;
         cliente.pedido.ValorTotal += cliente.carrinho[n].valor;
     }
 
-    printf("\nTOTAL: %.2f\n", total);
+    printf("\n\t\t\t\t\t\t\t*TOTAL: %.2f\n", total);
 
-    printf("\n   FORMA DE PAGAMENTO:: \n");
-    printf("   1- A VISTA   2- CARTÃO\n");
+    printf("\n\t\t\t\t\t\t\t   -FORMA DE PAGAMENTO: \n");
+    printf("\t\t\t\t\t\t\t 1- A VISTA   2- CARTÃO\n");
     cliente.pedido.FormaPagamento = VerificarNum();
 
     if(cliente.pedido.FormaPagamento == 1){
         float pagamento;
 
         do{
-            printf("\n   TROCO PARA: ");
+            printf("\n\t\t\t\t\t\t\t   -TROCO PARA: ");
             pagamento = VerificarNum();
 
         }while(pagamento < total);
@@ -362,8 +369,8 @@ void RealizarPagamento(int QntProd){
 
         cliente.pedido.troco += pagamento - total;
     } else {
-        printf("\n   1- CRÉDITO   2- DÉBITO");
-        scanf("%d",&cliente.pedido.FormaCartao);
+        printf("\n\t\t\t\t\t\t\t 1- CRÉDITO   2- DÉBITO");
+        cliente.pedido.FormaCartao = VerificarNum();
 
     }
 
@@ -376,7 +383,7 @@ void RealizarPagamento(int QntProd){
     cliente.pedido.QntProtudos += QntProd;
     memset(cliente.carrinho, 0, sizeof(cliente.carrinho));
 
-    printf("\n\n   1- Menu Inicial\n   2- Ver Pedidos\n");
+    printf("\n\n\t\t\t\t\t\t   1- Menu Inicial   2- Ver Pedidos\n");
     resposta = VerificarNum();
 
     if(resposta == 1)
