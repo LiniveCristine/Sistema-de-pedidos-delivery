@@ -2,39 +2,25 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
-#include <ctype.h>
 #include "sdelivery.h"
 
 
-int VerificarNum(){//PERGUNTAR CARLOS***
+int VerificarNum(){
 
     int resposta;
     char buffer;
 
-    printf("\n   RESPOSTA: ");
+    printf("\n\t\t\t\t\t\t\t\t RESPOSTA: ");
 
     while(scanf("%d", &resposta) != 1){
-        printf("   RESPOSTA INVÁLIDA\n");
-        printf("\n   RESPOSTA:  ");
-        scanf(" %s", &buffer);
+        printf("\t\t\t\t\t\t\t\t RESPOSTA INVÁLIDA\n");
+        printf("\n\t\t\t\t\t\t\t\t RESPOSTA: ");
+        scanf(" %s", &buffer); //PERGUNTAR CARLOS*** melhor forma?
 
     }
 
     return resposta;
 }
-
-char* VerificarTexto(int num){
-    fgets(cliente.nome, num, stdin);
-
-    while(cliente.nome == '\n'){
-        printf("\nTexto INVÁLIDO\n");
-        fgets(cliente.nome, num, stdin);
-    }
-
-    return cliente.nome;
-}
-
-
 
 void TirarQuebraLinha(char *texto){
      char *ponteiro;
@@ -61,13 +47,30 @@ void CadastrarCliente(){
     do{
         system("cls");
 
-        printf("\n\t*** NOME DA EMPRESA ****\n\n");
+        printf("\t\t\t\t\t\t        __   __  _______  _______  ___   _______                      \n");
+        printf("\t\t\t\t\t\t       |  |_|  ||   _   ||       ||   | |       |                     \n");
+        printf("\t\t\t\t\t\t       |       ||  |_|  ||    ___||   | |       |                     \n");
+        printf("\t\t\t\t\t\t       |       ||       ||   | __ |   | |       |                     \n");
+        printf("\t\t\t\t\t\t       |       ||       ||   ||  ||   | |      _|                     \n");
+        printf("\t\t\t\t\t\t       | ||_|| ||   _   ||   |_| ||   | |     |_                      \n");
+        printf("\t\t\t\t\t\t       |_|   |_||__| |__||_______||___| |_______|                     \n");
+        printf("\t\t\t\t\t\t  _______  __   __  ______    _______  _______  ______          \n");
+        printf("\t\t\t\t\t\t |  _    ||  | |  ||    _ |  |       ||       ||    _ |         \n");
+        printf("\t\t\t\t\t\t | |_|   ||  | |  ||   | ||  |    ___||    ___||   | ||         \n");
+        printf("\t\t\t\t\t\t |       ||  |_|  ||   |_||_ |   | __ |   |___ |   |_||_        \n");
+        printf("\t\t\t\t\t\t |  _   | |       ||    __  ||   ||  ||    ___||    __  |       \n");
+        printf("\t\t\t\t\t\t | |_|   ||       ||   |  | ||   |_| ||   |___ |   |  | |       \n");
+        printf("\t\t\t\t\t\t |_______||_______||___|  |_||_______||_______||___|  |_|       \n");
 
-        printf("\n- CADASTRO\n\n");
-        printf("   Nome: ");
+
+        printf("\n\t\t\t\t\t\t\t______________________________________\n");
+        printf("\n\t\t\t\t\t\t\t         ***** CADASTRO *****");
+        printf("\n\t\t\t\t\t\t\t______________________________________\n\n");
+
+        printf("\t\t\t\t\t\t\t   Nome: ");
         fgets(cliente.nome, 30, stdin);
 
-        printf("   Endereço: ");
+        printf("\t\t\t\t\t\t\t   Endereço: ");
         fgets(cliente.endereco, 60, stdin);
 
     }while(cliente.nome[0] == '\n' || cliente.endereco[0] == '\n');
@@ -80,13 +83,24 @@ void MenuInicial(){
     system("cls");
     int resposta;
 
-    printf("\n\t*** NOME DA EMPRESA ****\n\n");
-    printf("\t*** MENU ***\n");
-    printf("   1- CARDÁPIO\n");
-    printf("   2- FAZER PEDIDO\n");
-    printf("   3- VER PEDIDOS\n");
-    printf("   4- ADMINISTRADOR\n");
-    printf("   5- FINALIZAR\n");
+
+printf("\t\t\t\t\t\t __   __        _______  __   __  ______    _______  _______  ______   \n");
+printf("\t\t\t\t\t\t|  |_|  |      |  _    ||  | |  ||    _ |  |       ||       ||    _ |  \n");
+printf("\t\t\t\t\t\t|       |      | |_|   ||  | |  ||   | ||  |    ___||    ___||   | ||  \n");
+printf("\t\t\t\t\t\t|       |      |       ||  |_|  ||   |_||_ |   | __ |   |___ |   |_||_ \n");
+printf("\t\t\t\t\t\t|       | ___  |  _   | |       ||    __  ||   ||  ||    ___||    __  |\n");
+printf("\t\t\t\t\t\t| ||_|| ||   | | |_|   ||       ||   |  | ||   |_| ||   |___ |   |  | |\n");
+printf("\t\t\t\t\t\t|_|   |_||___| |_______||_______||___|  |_||_______||_______||___|  |_|\n");
+
+
+    printf("\n\t\t\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t\t          ***** MENU *****");
+    printf("\n\t\t\t\t\t\t\t\t______________________________________\n\n");
+    printf("\t\t\t\t\t\t\t\t   1- CARDÁPIO\n");
+    printf("\t\t\t\t\t\t\t\t   2- FAZER PEDIDO\n");
+    printf("\t\t\t\t\t\t\t\t   3- VER PEDIDOS\n");
+    printf("\t\t\t\t\t\t\t\t   4- ADMINISTRADOR\n");
+    printf("\t\t\t\t\t\t\t\t   5- FINALIZAR\n");
 
     resposta = VerificarNum();
 
@@ -184,6 +198,7 @@ void RemoverPrato(){
         }
 
         QntProdutosMenu--;
+
     } else{
         printf("\n   PRATO INVÁLIDO\n");
     }
@@ -210,13 +225,15 @@ void ExibirCardapio(){
     system("cls");
 
     int resposta;
-    printf("\n\n\t**** CARDÁPIO ****\n\n");
+    printf("\n\t\t\t\t\t\t______________________________________\n");
+    printf("\n\t\t\t\t\t\t\t***** CARDÁPIO *****");
+    printf("\n\t\t\t\t\t\t______________________________________\n\n");
 
     for(int i = 0; i <= QntProdutosMenu-1; i++){
-        printf("   %d- %s\n *%s\n *Valor: %.2f\n\n",i+1, menu[i].nome, menu[i].descricao, menu[i].valor);
+        printf("\t   %d- %s\n\t *%s\n\t *Valor: %.2f\n\n",i+1, menu[i].nome, menu[i].descricao, menu[i].valor);
     }
 
-    printf("\n\n   1- Fazer pedido\n   2- Voltar\n");
+    printf("\n\t\t\t\t\t\t\t 1- Fazer pedido  2- Voltar\n");
     resposta = VerificarNum();
 
     switch(resposta){
@@ -360,7 +377,6 @@ void RealizarPagamento(int QntProd){
     memset(cliente.carrinho, 0, sizeof(cliente.carrinho));
 
     printf("\n\n   1- Menu Inicial\n   2- Ver Pedidos\n");
-    printf("   RESPOSTA: ");
     resposta = VerificarNum();
 
     if(resposta == 1)
